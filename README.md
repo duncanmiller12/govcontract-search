@@ -1,36 +1,51 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# govcontract-search
 
-## Getting Started
+A Next.js app for searching federal contracting opportunities on SAM.gov — without the complexity. Plain-English search, AI-powered NAICS code discovery, and smart filters for set-aside types, agencies, and deadlines.
 
-First, run the development server:
+## Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- **Search** — keyword search across active opportunities and historical awards via the SAM.gov API
+- **Smart filters** — filter by NAICS code, set-aside type, notice type, agency, and posted date
+- **NAICS code discovery** — describe your business in plain English; Claude AI suggests the right industry codes
+- **Profile** — save your SAM.gov API key and NAICS codes locally (browser localStorage, nothing sent to a server)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Setup
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1. **Install dependencies**
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+   ```bash
+   npm install
+   ```
 
-## Learn More
+2. **Configure environment variables**
 
-To learn more about Next.js, take a look at the following resources:
+   ```bash
+   cp .env.local.example .env.local
+   ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+   Then edit `.env.local` and add your Anthropic API key (used server-side for NAICS matching):
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+   ```
+   ANTHROPIC_API_KEY=sk-ant-...
+   ```
 
-## Deploy on Vercel
+3. **SAM.gov API key** — each user enters their own free SAM.gov API key in the Profile page. It is stored in their browser only and never sent to this server. Get one at [sam.gov](https://sam.gov/content/entity-information/registration).
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+4. **Run the dev server**
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+   ```bash
+   npm run dev
+   ```
+
+   Open [http://localhost:3000](http://localhost:3000).
+
+## Tech stack
+
+- [Next.js](https://nextjs.org) (App Router)
+- [Tailwind CSS](https://tailwindcss.com)
+- [Anthropic Claude API](https://docs.anthropic.com) — NAICS code matching (`/api/naics-match`)
+- [SAM.gov Opportunities API v2](https://open.gsa.gov/api/get-opportunities-public-api/) — live contract data
+
+## Deployment
+
+Deploy to [Vercel](https://vercel.com) and set `ANTHROPIC_API_KEY` as an environment variable in the project settings. No database required — user data lives in the browser.
