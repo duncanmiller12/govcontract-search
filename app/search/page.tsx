@@ -75,12 +75,11 @@ function SearchResults() {
         fetch(`/api/awards?${params}`, { headers }),
       ])
 
-      if (!activeRes.ok || !awardsRes.ok) {
-        throw new Error('Failed to fetch opportunities')
-      }
-
       const activeData = await activeRes.json()
       const awardsData = await awardsRes.json()
+
+      if (!activeRes.ok) throw new Error(activeData.error || 'Failed to fetch opportunities')
+      if (!awardsRes.ok) throw new Error(awardsData.error || 'Failed to fetch awards')
 
       setOpportunities(activeData.opportunitiesData || [])
       setTotalActive(activeData.totalRecords || 0)
