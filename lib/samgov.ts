@@ -2,6 +2,26 @@ import type { SAMOpportunitiesResponse, SearchFilters } from './types'
 
 const SAM_API_BASE = 'https://api.sam.gov/prod/opportunities/v2/search'
 
+function toSAMDate(isoDate: string): string {
+  const [y, m, d] = isoDate.split('-')
+  return `${m}/${d}/${y}`
+}
+
+function defaultPostedFrom(): string {
+  const d = new Date()
+  d.setFullYear(d.getFullYear() - 1)
+  const m = String(d.getMonth() + 1).padStart(2, '0')
+  const day = String(d.getDate()).padStart(2, '0')
+  return `${m}/${day}/${d.getFullYear()}`
+}
+
+function defaultPostedTo(): string {
+  const d = new Date()
+  const m = String(d.getMonth() + 1).padStart(2, '0')
+  const day = String(d.getDate()).padStart(2, '0')
+  return `${m}/${day}/${d.getFullYear()}`
+}
+
 export function buildSAMParams(filters: SearchFilters, limit = 25, offset = 0): URLSearchParams {
   const params = new URLSearchParams()
   params.set('limit', String(limit))
@@ -12,8 +32,8 @@ export function buildSAMParams(filters: SearchFilters, limit = 25, offset = 0): 
   if (filters.typeOfSetAside) params.set('typeOfSetAside', filters.typeOfSetAside)
   if (filters.noticeType) params.set('ptype', filters.noticeType)
   if (filters.agency) params.set('organization', filters.agency)
-  if (filters.postedFrom) params.set('postedFrom', filters.postedFrom)
-  if (filters.postedTo) params.set('postedTo', filters.postedTo)
+  params.set('postedFrom', filters.postedFrom ? toSAMDate(filters.postedFrom) : defaultPostedFrom())
+  params.set('postedTo', filters.postedTo ? toSAMDate(filters.postedTo) : defaultPostedTo())
 
   return params
 }
