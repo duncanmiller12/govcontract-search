@@ -9,7 +9,7 @@ function toSAMDate(isoDate: string): string {
 
 function defaultPostedFrom(): string {
   const d = new Date()
-  d.setFullYear(d.getFullYear() - 1)
+  d.setMonth(d.getMonth() - 6)
   const m = String(d.getMonth() + 1).padStart(2, '0')
   const day = String(d.getDate()).padStart(2, '0')
   return `${m}/${day}/${d.getFullYear()}`
