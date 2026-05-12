@@ -125,6 +125,7 @@ export const NOTICE_TYPES: Record<string, string> = {
   'l': 'Fair Opportunity / Limited Sources Justification',
   'm': 'Modification/Amendment',
   'f': 'Foreign Government Standard',
+  't': 'SBIR/STTR',
 }
 
 export const NOTICE_TYPE_LABELS: Record<string, string> = {
@@ -136,6 +137,7 @@ export const NOTICE_TYPE_LABELS: Record<string, string> = {
   'Special Notice': 'Special Notice',
   'Award Notice': 'Award Notice',
   'Modification/Amendment': 'Amendment',
+  'SBIR/STTR': 'SBIR/STTR',
 }
 
 export const SET_ASIDE_LABELS: Record<string, string> = {
