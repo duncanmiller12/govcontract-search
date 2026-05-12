@@ -108,8 +108,8 @@ function SearchResults() {
     fetchData(query, filters)
   }, [query, filters, fetchData])
 
-  function handleFilterChange(key: string, value: string) {
-    setFilters((prev) => ({ ...prev, [key]: value }))
+  function handleApplyFilters(newFilters: typeof EMPTY_FILTERS) {
+    setFilters(newFilters)
   }
 
   function handleClearFilters() {
@@ -148,7 +148,7 @@ function SearchResults() {
 
       <div className="flex gap-6">
         <div className="hidden lg:block w-64 shrink-0">
-          <FilterPanel filters={filters} onChange={handleFilterChange} onClear={handleClearFilters} />
+          <FilterPanel filters={filters} onApply={handleApplyFilters} onClear={handleClearFilters} />
         </div>
 
         <div className="flex-1 min-w-0">
@@ -198,7 +198,7 @@ function SearchResults() {
             <div className="lg:hidden mb-4">
               <FilterPanel
                 filters={filters}
-                onChange={handleFilterChange}
+                onApply={handleApplyFilters}
                 onClear={handleClearFilters}
               />
             </div>

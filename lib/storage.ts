@@ -4,7 +4,7 @@ import type { UserProfile, SearchCache } from './types'
 
 const PROFILE_KEY = 'govcontract_profile'
 const CACHE_KEY_PREFIX = 'govcontract_cache_'
-const CACHE_TTL_MS = 10 * 60 * 1000 // 10 minutes
+const CACHE_TTL_MS = 6 * 60 * 60 * 1000 // 6 hours
 
 export function getProfile(): UserProfile {
   if (typeof window === 'undefined') return defaultProfile()
